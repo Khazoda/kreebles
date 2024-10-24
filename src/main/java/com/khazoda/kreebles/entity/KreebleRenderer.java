@@ -10,8 +10,8 @@ import static com.khazoda.kreebles.Constants.MOD_ID;
 import static com.khazoda.kreebles.entity.KreebleModel.KREEBLE_MODEL_LAYER;
 
 public class KreebleRenderer extends MobRenderer<KreebleEntity, EntityModel<KreebleEntity>> {
-  private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MOD_ID,
-      "textures/entity/kreeble.png");
+  private static final ResourceLocation texture_location = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/kreeble.png");
+  private static final ResourceLocation texture_hidden_location = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/entity/kreeble_hidden.png");
 
 
   public KreebleRenderer(EntityRendererProvider.Context pContext) {
@@ -21,6 +21,6 @@ public class KreebleRenderer extends MobRenderer<KreebleEntity, EntityModel<Kree
   @Nullable
   @Override
   public ResourceLocation getTextureLocation(KreebleEntity pEntity) {
-    return texture;
+    return pEntity.tickCount > 5 ? texture_location : texture_hidden_location;
   }
 }

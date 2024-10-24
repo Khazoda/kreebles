@@ -1,6 +1,7 @@
 package com.khazoda.kreebles;
 
 import com.khazoda.kreebles.registry.ItemGroupRegistry;
+import com.khazoda.kreebles.registry.KreebleSpawning;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,28 +21,24 @@ import static com.khazoda.kreebles.registry.MainRegistry.*;
 public class KreeblesMod {
 
   public KreeblesMod(IEventBus modEventBus, ModContainer modContainer) {
-    modEventBus.addListener(this::commonSetup);
+    modEventBus.addListener(this::setupCommon);
     BLOCKS.register(modEventBus);
     ITEMS.register(modEventBus);
     ITEM_GROUPS.register(modEventBus);
+    ENTITIES.register(modEventBus);
 
     ItemGroupRegistry.init();
+    modEventBus.addListener(KreebleSpawning::registerSpawnPlacements);
+    modEventBus.addListener(KreebleSpawning::registerEntityAttributes);
+
     NeoForge.EVENT_BUS.register(this);
     modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
   }
 
-  private void commonSetup(final FMLCommonSetupEvent event) {
-
+  private void setupCommon(final FMLCommonSetupEvent event) {
   }
 
   @SubscribeEvent
   public void onServerStarting(ServerStartingEvent event) {
-  }
-
-  @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-  public static class ClientModEvents {
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-    }
   }
 }

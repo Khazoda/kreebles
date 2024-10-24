@@ -37,6 +37,6 @@ public class MainRegistry {
   public static final DeferredItem<BlockItem> KREEBLE_DEEPSLATE_ITEM = ITEMS.registerSimpleBlockItem("kreebledeepslate", KREEBLE_DEEPSLATE);
 
   public static final DeferredItem<Item> DASTARDLY_TALISMAN = ITEMS.registerSimpleItem("dastardly_talisman", new Item.Properties().stacksTo(1));
-  public static final DeferredItem<DeferredSpawnEggItem> KREEBLE_SPAWN_EGG = ITEMS.register("kreeble_spawn_egg", () -> new DeferredSpawnEggItem(MainRegistry.KREEBLE, 1189750, 13442571, new Item.Properties()));
+  public static final DeferredItem<DeferredSpawnEggItem> KREEBLE_SPAWN_EGG = ITEMS.register("kreeble_spawn_egg", () -> new DeferredSpawnEggItem(MainRegistry.KREEBLE, 2040099, 1217844, new Item.Properties()));
 
 }

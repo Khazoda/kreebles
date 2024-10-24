@@ -1,11 +1,13 @@
 package com.khazoda.kreebles.entity;
 
+import com.khazoda.kreebles.registry.MainRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -30,6 +32,7 @@ public class KreebleEntity extends PathfinderMob {
   public final AnimationState spawnAnimationState = new AnimationState();
   public final AnimationState restAnimationState = new AnimationState();
   public final AnimationState walkAnimationState = new AnimationState();
+  int flag;
 
   public KreebleEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
     super(pEntityType, pLevel);
@@ -43,9 +46,8 @@ public class KreebleEntity extends PathfinderMob {
     this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
     this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(KreebleEntity.class));
-    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
+    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, false));
-
   }
 
   @Override
@@ -75,6 +77,21 @@ public class KreebleEntity extends PathfinderMob {
     }
   }
 
+  @Override
+  public void aiStep() {
+    LivingEntity target = this.getTarget();
+    if (target != null && target instanceof ServerPlayer) {
+      if (target.isHolding(MainRegistry.DASTARDLY_TALISMAN.get())) {
+        if(flag == 0) {
+          this.igniteForSeconds(1);
+          level().explode(this, this.getX(), this.getY(), this.getZ(), 0f, Level.ExplosionInteraction.MOB);
+          this.kill();
+          flag = this.tickCount;
+        }
+      }
+    }
+    super.aiStep();
+  }
 
   @Override
   public boolean hurt(DamageSource pSource, float pAmount) {

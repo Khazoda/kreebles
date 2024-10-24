@@ -2,5 +2,7 @@
   "itemGroup.kreebles": "Kreebles",
   "block.kreebles.kreeblestone": "Kreeblestone",
   "block.kreebles.kreebledeepslate": "Kreebleslate",
-  "entity.kreebles.kreeble": "Kreeble"
+  "entity.kreebles.kreeble": "Kreeble",
+  "item.kreebles.dastardly_talisman": "Dastardly Talisman",
+  "item.kreebles.kreeble_spawn_egg": "Kreeble Spawn Egg"
 }

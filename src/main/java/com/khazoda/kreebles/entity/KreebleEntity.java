@@ -70,7 +70,9 @@ public class KreebleEntity extends PathfinderMob {
         .add(Attributes.MAX_HEALTH, 10.0D)
         .add(Attributes.MOVEMENT_SPEED, (double) 0.3D)
         .add(Attributes.KNOCKBACK_RESISTANCE, (double) 0.4D)
-        .add(Attributes.FOLLOW_RANGE, (double) 30.0D);
+        .add(Attributes.FOLLOW_RANGE, (double) 30.0D)
+        .add(Attributes.ATTACK_DAMAGE, (double) 2.0D)
+        .add(Attributes.ATTACK_SPEED, (double) 5.0D);
   }
 
   public boolean isResting() {

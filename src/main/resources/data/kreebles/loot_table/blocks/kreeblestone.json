@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "minecraft:stone"
+              "name": "kreebles:kreeblestone"
             },
             {
               "type": "minecraft:item",

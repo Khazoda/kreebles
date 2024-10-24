@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -36,4 +37,6 @@ public class MainRegistry {
   public static final DeferredItem<BlockItem> KREEBLE_DEEPSLATE_ITEM = ITEMS.registerSimpleBlockItem("kreebledeepslate", KREEBLE_DEEPSLATE);
 
   public static final DeferredItem<Item> DASTARDLY_TALISMAN = ITEMS.registerSimpleItem("dastardly_talisman", new Item.Properties().stacksTo(1));
+  public static final DeferredItem<DeferredSpawnEggItem> KREEBLE_SPAWN_EGG = ITEMS.register("kreeble_spawn_egg", () -> new DeferredSpawnEggItem(MainRegistry.KREEBLE, 1189750, 13442571, new Item.Properties()));
+
 }

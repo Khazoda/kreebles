@@ -3,8 +3,6 @@ package com.khazoda.kreebles.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -89,7 +86,7 @@ public class KreebleEntity extends PathfinderMob {
   }
 
   private void setupAnimationStates() {
-    if (this.getDeltaMovement().equals(Vec3.ZERO)) {
+    if (isVectorLessThanThreshold(this.getDeltaMovement(), 0.01)) {
       this.walkAnimationState.stop();
       this.restAnimationState.startIfStopped(this.tickCount);
     } else {
@@ -98,6 +95,10 @@ public class KreebleEntity extends PathfinderMob {
       this.spawnAnimationState.startIfStopped(this.tickCount);
       this.walkAnimationState.startIfStopped(this.tickCount);
     }
+  }
+
+  public static boolean isVectorLessThanThreshold(Vec3 vec, double threshold) {
+    return vec.x() < threshold && vec.y() < threshold && vec.z() < threshold;
   }
 
   private void clientDiggingParticles(AnimationState pAnimationState) {

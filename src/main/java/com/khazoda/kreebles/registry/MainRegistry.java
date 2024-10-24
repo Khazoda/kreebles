@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -34,5 +35,5 @@ public class MainRegistry {
   public static final DeferredItem<BlockItem> KREEBLE_STONE_ITEM = ITEMS.registerSimpleBlockItem("kreeblestone", KREEBLE_STONE);
   public static final DeferredItem<BlockItem> KREEBLE_DEEPSLATE_ITEM = ITEMS.registerSimpleBlockItem("kreebledeepslate", KREEBLE_DEEPSLATE);
 
-//  public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+  public static final DeferredItem<Item> DASTARDLY_TALISMAN = ITEMS.registerSimpleItem("dastardly_talisman", new Item.Properties().stacksTo(1));
 }

@@ -15,6 +15,9 @@ public class ItemGroupRegistry {
       .displayItems((parameters, output) -> {
         output.accept(KREEBLE_STONE_ITEM.get());
         output.accept(KREEBLE_DEEPSLATE_ITEM.get());
+        output.accept(DASTARDLY_TALISMAN.get());
+        output.accept(KREEBLE_SPAWN_EGG.get());
+
       }).build());
 
   public static void init() {

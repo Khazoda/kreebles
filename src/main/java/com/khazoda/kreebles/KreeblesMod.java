@@ -26,6 +26,7 @@ public class KreeblesMod {
     ITEMS.register(modEventBus);
     ITEM_GROUPS.register(modEventBus);
     ENTITIES.register(modEventBus);
+    SOUNDS.register(modEventBus);
 
     ItemGroupRegistry.init();
     modEventBus.addListener(KreebleSpawning::registerSpawnPlacements);

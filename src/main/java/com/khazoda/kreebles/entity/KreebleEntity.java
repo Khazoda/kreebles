@@ -136,9 +136,12 @@ public class KreebleEntity extends PathfinderMob {
   @Override
   public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance
       difficultyInstance, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData groupData) {
-    this.playSound(SoundEvents.AMETHYST_BLOCK_HIT, 5.0F, 1.0F);
+    this.playSound(SoundEvents.AMETHYST_BLOCK_HIT, 3.0F, 1.0F);
+    this.playSound(MainRegistry.KREEBLE_SPAWN.get(),1.0f,1.2f);
     return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData);
   }
+
+
 
   @Override
   protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {

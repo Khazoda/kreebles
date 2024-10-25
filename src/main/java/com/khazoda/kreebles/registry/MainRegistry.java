@@ -3,6 +3,7 @@ package com.khazoda.kreebles.registry;
 import com.khazoda.kreebles.block.KreebleSpawningBlock;
 import com.khazoda.kreebles.block.KreebleSpawningBlockWithAxis;
 import com.khazoda.kreebles.entity.KreebleEntity;
+import com.khazoda.kreebles.item.DastardlyTalismanItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -36,7 +37,7 @@ public class MainRegistry {
   public static final DeferredItem<BlockItem> KREEBLE_STONE_ITEM = ITEMS.registerSimpleBlockItem("kreeblestone", KREEBLE_STONE);
   public static final DeferredItem<BlockItem> KREEBLE_DEEPSLATE_ITEM = ITEMS.registerSimpleBlockItem("kreebledeepslate", KREEBLE_DEEPSLATE);
 
-  public static final DeferredItem<Item> DASTARDLY_TALISMAN = ITEMS.registerSimpleItem("dastardly_talisman", new Item.Properties().stacksTo(1));
+  public static final DeferredItem<Item> DASTARDLY_TALISMAN = ITEMS.registerItem("dastardly_talisman", DastardlyTalismanItem::new);
   public static final DeferredItem<DeferredSpawnEggItem> KREEBLE_SPAWN_EGG = ITEMS.register("kreeble_spawn_egg", () -> new DeferredSpawnEggItem(MainRegistry.KREEBLE, 2040099, 1217844, new Item.Properties()));
 
 }

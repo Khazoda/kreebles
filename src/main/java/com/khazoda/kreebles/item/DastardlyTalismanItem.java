@@ -19,6 +19,7 @@ public class DastardlyTalismanItem extends Item {
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_1").withColor(10197915));
     pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_2").withColor(10197915));
+    pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_3").withColor(8618626));
 
   }
 }

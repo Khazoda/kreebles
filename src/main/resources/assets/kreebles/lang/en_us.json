@@ -5,6 +5,8 @@
   "entity.kreebles.kreeble": "Kreeble",
   "item.kreebles.dastardly_talisman": "Dastardly Talisman",
   "item.kreebles.kreeble_spawn_egg": "Kreeble Spawn Egg",
-  "tooltip.kreebles.dastardly_talisman_1": "A player holding this talisman emanates",
-  "tooltip.kreebles.dastardly_talisman_2": "a power that stuns kreeblekind"
+  "tooltip.kreebles.dastardly_talisman_1": "Thee who holds this talisman shall",
+  "tooltip.kreebles.dastardly_talisman_2": "no longer fear kreeble-kind!",
+  "tooltip.kreebles.dastardly_talisman_3": "(or you can smelt it down)"
+
 }

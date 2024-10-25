@@ -4,5 +4,7 @@
   "block.kreebles.kreebledeepslate": "Kreebleslate",
   "entity.kreebles.kreeble": "Kreeble",
   "item.kreebles.dastardly_talisman": "Dastardly Talisman",
-  "item.kreebles.kreeble_spawn_egg": "Kreeble Spawn Egg"
+  "item.kreebles.kreeble_spawn_egg": "Kreeble Spawn Egg",
+  "tooltip.kreebles.dastardly_talisman_1": "A Player holding this talisman brings",
+  "tooltip.kreebles.dastardly_talisman_2": "destruction upon kreeblekind"
 }

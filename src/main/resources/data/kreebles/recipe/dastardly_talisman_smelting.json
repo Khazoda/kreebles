@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "kreebles:dastardly_talisman"
+  },
+  "result": {
+    "id": "minecraft:budding_amethyst"
+  },
+  "experience": 10,
+  "cookingtime": 500
+}

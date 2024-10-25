@@ -13,6 +13,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,6 +22,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -32,7 +36,6 @@ public class KreebleEntity extends PathfinderMob {
   public final AnimationState spawnAnimationState = new AnimationState();
   public final AnimationState restAnimationState = new AnimationState();
   public final AnimationState walkAnimationState = new AnimationState();
-  int flag;
 
   public KreebleEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
     super(pEntityType, pLevel);
@@ -48,7 +51,7 @@ public class KreebleEntity extends PathfinderMob {
     this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(KreebleEntity.class));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, false));
-    this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, false));
+    this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Creeper.class, false));
   }
 
   @Override
@@ -83,12 +86,7 @@ public class KreebleEntity extends PathfinderMob {
     LivingEntity target = this.getTarget();
     if (target != null && target instanceof ServerPlayer) {
       if (target.isHolding(MainRegistry.DASTARDLY_TALISMAN.get())) {
-        if(flag == 0) {
-          this.igniteForSeconds(1);
-          level().explode(this, this.getX(), this.getY(), this.getZ(), 0f, Level.ExplosionInteraction.MOB);
-          this.kill();
-          flag = this.tickCount;
-        }
+          this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,1,100));
       }
     }
     super.aiStep();

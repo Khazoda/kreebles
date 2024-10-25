@@ -4,10 +4,10 @@ import com.khazoda.kreebles.registry.MainRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -23,7 +23,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -36,6 +35,7 @@ public class KreebleEntity extends PathfinderMob {
   public final AnimationState spawnAnimationState = new AnimationState();
   public final AnimationState restAnimationState = new AnimationState();
   public final AnimationState walkAnimationState = new AnimationState();
+  public final AnimationState talismanFrozenAnimationState = new AnimationState();
 
   public KreebleEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
     super(pEntityType, pLevel);
@@ -43,11 +43,10 @@ public class KreebleEntity extends PathfinderMob {
 
   protected void registerGoals() {
     this.goalSelector.addGoal(1, new FloatGoal(this));
-    this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.5f));
-    this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
-    this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
-    this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-    this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+    this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+    this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+    this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+    this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(KreebleEntity.class));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, false));
@@ -77,16 +76,17 @@ public class KreebleEntity extends PathfinderMob {
   public void tick() {
     super.tick();
     if (level().isClientSide) {
-      this.setupAnimationStates();
+      this.runClientsideAnimations();
     }
+    this.runsTalismanActivatedAnimations(this.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
   }
 
   @Override
   public void aiStep() {
     LivingEntity target = this.getTarget();
-    if (target != null && target instanceof ServerPlayer) {
+    if (target != null) {
       if (target.isHolding(MainRegistry.DASTARDLY_TALISMAN.get())) {
-          this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,1,100));
+        this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1, 100));
       }
     }
     super.aiStep();
@@ -101,8 +101,14 @@ public class KreebleEntity extends PathfinderMob {
     }
   }
 
-  private void setupAnimationStates() {
-    if (isVectorLessThanThreshold(this.getDeltaMovement(), 0.01)) {
+  private void runClientsideAnimations() {
+
+    level().players().getFirst().sendSystemMessage(Component.literal(String.valueOf(this.getDeltaMovement().equals(Vec3.ZERO))));
+    if (this.getDeltaMovement().equals(Vec3.ZERO)) {
+      /** Maybe one day I'll get this to work */
+//      this.restAnimationState.stop();
+//      this.talismanFrozenAnimationState.startIfStopped(this.tickCount);
+    } else if (isVectorLessThanThreshold(this.getDeltaMovement(), 0.0005)) {
       this.walkAnimationState.stop();
       this.restAnimationState.startIfStopped(this.tickCount);
     } else {
@@ -110,6 +116,17 @@ public class KreebleEntity extends PathfinderMob {
       this.clientDiggingParticles(this.spawnAnimationState);
       this.spawnAnimationState.startIfStopped(this.tickCount);
       this.walkAnimationState.startIfStopped(this.tickCount);
+    }
+  }
+
+  private void runsTalismanActivatedAnimations(boolean slowed) {
+    if (!level().isClientSide) return;
+    if (slowed) {
+      this.restAnimationState.stop();
+      this.talismanFrozenAnimationState.startIfStopped(this.tickCount);
+    } else {
+      this.talismanFrozenAnimationState.stop();
+      this.restAnimationState.startIfStopped(this.tickCount);
     }
   }
 
@@ -132,15 +149,15 @@ public class KreebleEntity extends PathfinderMob {
     }
   }
 
+
   @org.jetbrains.annotations.Nullable
   @Override
   public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance
       difficultyInstance, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData groupData) {
     this.playSound(SoundEvents.AMETHYST_BLOCK_HIT, 3.0F, 1.0F);
-    this.playSound(MainRegistry.KREEBLE_SPAWN.get(),1.0f,1.2f);
+    this.playSound(MainRegistry.KREEBLE_SPAWN.get(), 1.0f, 1.2f);
     return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData);
   }
-
 
 
   @Override

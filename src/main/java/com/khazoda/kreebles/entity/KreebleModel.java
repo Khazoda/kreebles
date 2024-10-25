@@ -138,5 +138,6 @@ public class KreebleModel extends HierarchicalModel<KreebleEntity> {
     this.animate(pEntity.spawnAnimationState, KreebleAnimations.KREEBLE_EMERGE, pAgeInTicks, 1.0F);
     this.animate(pEntity.restAnimationState, KreebleAnimations.KREEBLE_IDLE, pAgeInTicks, 1.0F);
     this.animate(pEntity.walkAnimationState, KreebleAnimations.KREEBLE_WALK, pAgeInTicks, 1.0F);
+    this.animate(pEntity.talismanFrozenAnimationState, KreebleAnimations.KREEBLE_FROZEN, pAgeInTicks, 1.0F);
   }
 }

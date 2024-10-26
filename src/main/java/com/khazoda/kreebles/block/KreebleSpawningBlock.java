@@ -25,7 +25,12 @@ public class KreebleSpawningBlock extends Block {
 
   @Override
   public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-    level.playLocalSound(pos, MainRegistry.KREEBLE_SPAWN.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+    var random = level.getRandom().nextBoolean();
+    if (random) {
+      level.playLocalSound(pos, MainRegistry.KREEBLE_SPAWN.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+    } else {
+      level.playLocalSound(pos, MainRegistry.KREEBLE_GIGGLE.get(), SoundSource.BLOCKS, 1.0f, 1.0f, false);
+    }
     return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
   }
 

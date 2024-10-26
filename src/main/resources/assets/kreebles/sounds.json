@@ -32,5 +32,11 @@
     "sounds": [
       "kreebles:kreeble_death"
     ]
+  },
+  "kreeble.giggle" : {
+    "category" : "neutral",
+    "sounds": [
+      "kreebles:kreeble_giggle"
+    ]
   }
 }

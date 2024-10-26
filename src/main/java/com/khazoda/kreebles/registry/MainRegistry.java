@@ -4,7 +4,6 @@ import com.khazoda.kreebles.block.KreebleSpawningBlock;
 import com.khazoda.kreebles.block.KreebleSpawningBlockWithAxis;
 import com.khazoda.kreebles.entity.KreebleEntity;
 import com.khazoda.kreebles.item.DastardlyTalismanItem;
-import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
-import net.neoforged.neoforge.common.util.DeferredSoundType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -55,4 +53,6 @@ public class MainRegistry {
       SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.ambient")));
   public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_ATTACK = SOUNDS.register("kreeble.attack", () ->
       SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.attack")));
+  public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_GIGGLE = SOUNDS.register("kreeble.giggle", () ->
+      SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.giggle")));
 }

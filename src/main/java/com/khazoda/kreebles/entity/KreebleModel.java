@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -140,4 +141,9 @@ public class KreebleModel extends HierarchicalModel<KreebleEntity> {
     this.animate(pEntity.walkAnimationState, KreebleAnimations.KREEBLE_WALK, pAgeInTicks, 1.0F);
     this.animate(pEntity.talismanFrozenAnimationState, KreebleAnimations.KREEBLE_FROZEN, pAgeInTicks, 1.0F);
   }
+
+  public boolean isAggressive(KreebleEntity pEntity) {
+    return pEntity.isAggressive();
+  }
+
 }

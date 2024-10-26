@@ -1,5 +1,6 @@
 package com.khazoda.kreebles.entity;
 
+import com.khazoda.kreebles.goal.KreebleAttackGoal;
 import com.khazoda.kreebles.registry.MainRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -8,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class KreebleEntity extends PathfinderMob {
   private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(KreebleEntity.class, EntityDataSerializers.BYTE);
@@ -43,7 +46,7 @@ public class KreebleEntity extends PathfinderMob {
 
   protected void registerGoals() {
     this.goalSelector.addGoal(1, new FloatGoal(this));
-    this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+    this.goalSelector.addGoal(2, new KreebleAttackGoal(this, 1.0D, false));
     this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
     this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.8D));
     this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -65,7 +68,7 @@ public class KreebleEntity extends PathfinderMob {
         .add(Attributes.MOVEMENT_SPEED, (double) 0.4D)
         .add(Attributes.KNOCKBACK_RESISTANCE, (double) 0.4D)
         .add(Attributes.FOLLOW_RANGE, (double) 30.0D)
-        .add(Attributes.STEP_HEIGHT, 0.75D)
+        .add(Attributes.STEP_HEIGHT, 1.0D)
         .add(Attributes.SCALE, 2D)
         .add(Attributes.GRAVITY, 1.5D)
         .add(Attributes.ATTACK_DAMAGE, (double) 2.0D)
@@ -78,7 +81,6 @@ public class KreebleEntity extends PathfinderMob {
     if (level().isClientSide) {
       this.runClientsideAnimations();
     }
-    this.runsTalismanActivatedAnimations(this.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
   }
 
   @Override
@@ -102,8 +104,6 @@ public class KreebleEntity extends PathfinderMob {
   }
 
   private void runClientsideAnimations() {
-
-    level().players().getFirst().sendSystemMessage(Component.literal(String.valueOf(this.getDeltaMovement().equals(Vec3.ZERO))));
     if (this.getDeltaMovement().equals(Vec3.ZERO)) {
       /** Maybe one day I'll get this to work */
 //      this.restAnimationState.stop();
@@ -119,16 +119,6 @@ public class KreebleEntity extends PathfinderMob {
     }
   }
 
-  private void runsTalismanActivatedAnimations(boolean slowed) {
-    if (!level().isClientSide) return;
-    if (slowed) {
-      this.restAnimationState.stop();
-      this.talismanFrozenAnimationState.startIfStopped(this.tickCount);
-    } else {
-      this.talismanFrozenAnimationState.stop();
-      this.restAnimationState.startIfStopped(this.tickCount);
-    }
-  }
 
   public static boolean isVectorLessThanThreshold(Vec3 vec, double threshold) {
     return vec.x() < threshold && vec.y() < threshold && vec.z() < threshold;
@@ -149,16 +139,37 @@ public class KreebleEntity extends PathfinderMob {
     }
   }
 
-
   @org.jetbrains.annotations.Nullable
   @Override
   public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance
       difficultyInstance, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData groupData) {
     this.playSound(SoundEvents.AMETHYST_BLOCK_HIT, 3.0F, 1.0F);
-    this.playSound(MainRegistry.KREEBLE_SPAWN.get(), 1.0f, 1.2f);
     return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData);
   }
 
+
+  @Nullable
+  @Override
+  protected SoundEvent getDeathSound() {
+    return MainRegistry.KREEBLE_DEATH.get();
+  }
+
+  @Nullable
+  @Override
+  protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    return MainRegistry.KREEBLE_HIT.get();
+  }
+
+  @Nullable
+  @Override
+  protected SoundEvent getAmbientSound() {
+    return MainRegistry.KREEBLE_AMBIENT.get();
+  }
+
+  @Override
+  protected void playAttackSound() {
+    this.makeSound(MainRegistry.KREEBLE_ATTACK.get());
+  }
 
   @Override
   protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {

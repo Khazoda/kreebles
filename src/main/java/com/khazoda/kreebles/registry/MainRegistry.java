@@ -47,4 +47,12 @@ public class MainRegistry {
 
   public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_SPAWN = SOUNDS.register("kreeble.spawn", () ->
       SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.spawn")));
+  public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_DEATH = SOUNDS.register("kreeble.death", () ->
+      SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.death")));
+  public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_HIT = SOUNDS.register("kreeble.hit", () ->
+      SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.hit")));
+  public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_AMBIENT = SOUNDS.register("kreeble.ambient", () ->
+      SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.ambient")));
+  public static final DeferredHolder<SoundEvent, SoundEvent> KREEBLE_ATTACK = SOUNDS.register("kreeble.attack", () ->
+      SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "kreeble.attack")));
 }

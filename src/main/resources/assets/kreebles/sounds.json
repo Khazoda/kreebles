@@ -8,26 +8,29 @@
       }
     ]
   },
-  "gnome.passive" : {
+  "kreeble.ambient" : {
     "category" : "neutral",
     "sounds": [
-      "gnomed:gnome/gnome_ambient",
-      "gnomed:gnome/gnome_ambient2",
-      "gnomed:gnome/gnome_ambient3",
-      "gnomed:gnome/gnome_ambient4",
-      "gnomed:gnome/gnome_ambient5"
+      "kreebles:kreeble_ambient_1",
+      "kreebles:kreeble_ambient_2"
     ]
   },
-  "gnome.hurt" : {
+  "kreeble.hit" : {
     "category" : "neutral",
     "sounds": [
-      "gnomed:gnome/gnome_ambient"
+      "kreebles:kreeble_hit"
     ]
   },
-  "gnome.death" : {
+  "kreeble.attack" : {
     "category" : "neutral",
     "sounds": [
-      "gnomed:gnome/gnome_death"
+      "kreebles:kreeble_attack"
+    ]
+  },
+  "kreeble.death" : {
+    "category" : "neutral",
+    "sounds": [
+      "kreebles:kreeble_death"
     ]
   }
 }

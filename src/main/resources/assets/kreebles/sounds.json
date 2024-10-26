@@ -12,7 +12,8 @@
     "category" : "neutral",
     "sounds": [
       "kreebles:kreeble_ambient_1",
-      "kreebles:kreeble_ambient_2"
+      "kreebles:kreeble_ambient_2",
+      "kreebles:kreeble_giggle"
     ]
   },
   "kreeble.hit" : {

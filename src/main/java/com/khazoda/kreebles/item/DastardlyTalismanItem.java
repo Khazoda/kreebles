@@ -18,8 +18,8 @@ public class DastardlyTalismanItem extends Item {
   public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_1").withColor(10197915));
-    pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_2").withColor(10197915));
-    pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_3").withColor(8618626));
+    pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_2").withColor(12688733));
+    pTooltipComponents.add(Component.translatable("tooltip.kreebles.dastardly_talisman_3").withColor(6316381));
 
   }
 }

@@ -1,0 +1,27 @@
+{
+  "criteria": {
+    "got_dastardly_talisman": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kreebles:dastardly_talisman"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "got_dastardly_talisman"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kreebles:dastardly_talisman_smelting",
+      "kreebles:kreebledeepslate",
+      "kreebles:kreeblestone"
+    ]
+  },
+  "sends_telemetry_event": true
+}

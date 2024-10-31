@@ -5,9 +5,9 @@
   "entity.kreebles.kreeble": "Kreeble",
   "item.kreebles.dastardly_talisman": "Dastardly Talisman",
   "item.kreebles.kreeble_spawn_egg": "Kreeble Spawn Egg",
-  "tooltip.kreebles.dastardly_talisman_1": "Thee who holds this talisman shall",
-  "tooltip.kreebles.dastardly_talisman_2": "no longer fear kreeble-kind!",
-  "tooltip.kreebles.dastardly_talisman_3": "(or you can smelt it down)",
+  "tooltip.kreebles.dastardly_talisman_1": "Freezes kreeblekind in place",
+  "tooltip.kreebles.dastardly_talisman_2": "Can be smelted",
+  "tooltip.kreebles.dastardly_talisman_3": "Can be used in crafting",
 
   "resource_pack.kreebles.visible_kreeblestones.description": "Makes Kreeblestone and Kreebleslate more visible so you're less likely to get spooked!"
 }
